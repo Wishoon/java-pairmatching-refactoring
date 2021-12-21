@@ -35,9 +35,7 @@ public class PairMatchingService {
 		int generatePairMatchCount = 0;
 		while (true) {
 			Pairs pairs = isJudgeOddOrEvenCrewsNameSize(Randoms.shuffle(FileUtil.fileReader(course.getNameLocation())));
-			if (generatePairMatchCount == LIMIT_PAIR_MATCHING_TRY_COUNT) {
-				throw new IllegalArgumentException(ERROR_PAIR_NOT_MATCHING);
-			}
+			isValidatePairMatchCount(generatePairMatchCount);
 			if (isValidateCourseAndLevelToSamePair(course, level, pairs)) {
 				generatePairMatchCount++;
 				continue;
@@ -45,6 +43,26 @@ public class PairMatchingService {
 			PairMatchingRepository.addMatching(PairMatch.of(course, level, mission, pairs));
 			break;
 		}
+	}
+
+	public static void updatePairMatching(Course course, Level level, Mission mission) throws IOException {
+		int generatePairMatchCount = 0;
+		while (true) {
+			Pairs pairs = isJudgeOddOrEvenCrewsNameSize(Randoms.shuffle(FileUtil.fileReader(course.getNameLocation())));
+			isValidatePairMatchCount(generatePairMatchCount);
+			if (isValidateCourseAndLevelToSamePair(course, level, pairs)) {
+				generatePairMatchCount++;
+				continue;
+			}
+			PairMatch currentPairMatch = PairMatchingRepository.selectPairMatch(course, level, mission);
+			PairMatchingRepository.updateMatching(currentPairMatch, PairMatch.of(course, level, mission, pairs));
+			break;
+		}
+	}
+
+	private static void isValidatePairMatchCount(int count) {
+		if (count == LIMIT_PAIR_MATCHING_TRY_COUNT)
+			throw new IllegalArgumentException(ERROR_PAIR_NOT_MATCHING);
 	}
 
 	private static boolean isValidateCourseAndLevelToSamePair(Course course, Level level, Pairs pairs) {

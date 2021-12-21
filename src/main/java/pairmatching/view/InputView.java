@@ -25,6 +25,9 @@ public class InputView {
 	private static final String INPUT_RE_MATCHING_FUNCTION_MESSAGE = "매칭 정보가 있습니다. 다시 매칭하시겠습니까?\n"
 		+ "네 | 아니오";
 
+	private static final String INPUT_PAIR_RE_MATCHING_FUNCTION_MESSAGE = "과정, 레벨, 미션을 선택하세요.\n"
+		+ "ex) 백엔드, 레벨1, 자동차경주";
+
 	public static String getInputMainCommand() {
 		System.out.println(INPUT_MAIN_FUNCTION_MESSAGE);
 		String command = Console.readLine();
@@ -41,6 +44,13 @@ public class InputView {
 
 	public static String getInputReMatchingCommand() {
 		System.out.println(INPUT_RE_MATCHING_FUNCTION_MESSAGE);
+		String command = Console.readLine();
+		System.out.print(System.lineSeparator());
+		return command;
+	}
+
+	public static String getInputRePairMatchingCommand() {
+		System.out.println(INPUT_PAIR_RE_MATCHING_FUNCTION_MESSAGE);
 		String command = Console.readLine();
 		System.out.print(System.lineSeparator());
 		return command;
