@@ -7,6 +7,7 @@ public class OutputView {
 	private static final String ERROR_MESSAGE = "[ERROR] ";
 	private static final String COLON = " : ";
 	private static final String PAIR_MATCHING_RESULT_MESSAGE = "페어 매칭 결과입니다.";
+	private static final String PAIR_MATCHING_INITIALIZE_MESSAGE = "초기화 되었습니다.";
 
 	public static void printGenerateMatchingResult(PairMatch pairMatch) {
 		System.out.println(PAIR_MATCHING_RESULT_MESSAGE);
@@ -21,6 +22,10 @@ public class OutputView {
 	}
 
 	public static void printErrorMessage(Exception e) {
-		System.out.println(ERROR_MESSAGE + e.getMessage());
+		System.out.println(ERROR_MESSAGE + e.getMessage() + System.lineSeparator());
+	}
+
+	public static void printInitializeMatching() {
+		System.out.println(PAIR_MATCHING_INITIALIZE_MESSAGE);
 	}
 }

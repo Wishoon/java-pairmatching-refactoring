@@ -47,7 +47,8 @@ public class MainHandler {
 	}
 
 	public static void resetManager() {
-
+		PairMatchingRepository.deleteAllMatching();
+		OutputView.printInitializeMatching();
 	}
 
 	public static void exitManager() {
