@@ -18,15 +18,15 @@ public class PairMatch {
 	}
 
 	public boolean equalsCourse(Course course) {
-		return course.equals(course);
+		return this.course.equals(course);
 	}
 
 	public boolean equalsLevel(Level level) {
-		return level.equals(level);
+		return this.level.equals(level);
 	}
 
 	public boolean equalsMission(Mission mission) {
-		return mission.equals(mission);
+		return this.mission.equals(mission);
 	}
 
 	public boolean equalsPairs(Pairs pairs) {
