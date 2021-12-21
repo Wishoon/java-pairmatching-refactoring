@@ -5,13 +5,15 @@ import java.io.IOException;
 import pairmatching.domain.Course;
 import pairmatching.domain.Level;
 import pairmatching.domain.Mission;
+import pairmatching.domain.PairMatch;
+import pairmatching.domain.repository.PairMatchingRepository;
 import pairmatching.view.InputView;
 import pairmatching.view.OutputView;
 
 public class MainHandler {
-	private static final int COURSE_INDEX = 0;
-	private static final int LEVEL_INDEX = 1;
-	private static final int MISSION_INDEX = 2;
+	public static final int COURSE_INDEX = 0;
+	public static final int LEVEL_INDEX = 1;
+	public static final int MISSION_INDEX = 2;
 
 	public static void matchingManager() {
 		try {
@@ -21,6 +23,7 @@ public class MainHandler {
 			Mission mission = Mission.findByMission(command_element[MISSION_INDEX]);
 
 			PairMatchingHandler.generateMatching(course, level, mission);
+			OutputView.printGenerateMatchingResult(PairMatchingRepository.selectPairMatch(course, level, mission));
 		} catch (IllegalArgumentException | IOException e) {
 			OutputView.printErrorMessage(e);
 			matchingManager();
@@ -31,6 +34,7 @@ public class MainHandler {
 	}
 
 	public static void resetManager() {
+
 	}
 
 	public static void exitManager() {
