@@ -16,6 +16,7 @@ import pairmatching.domain.repository.PairMatchingRepository;
 import pairmatching.util.FileUtil;
 
 public class PairMatchingService {
+	private static final String ERROR_PAIR_NOT_MATCHING = "매칭을 할 수 없습니다.";
 	private static final int LIMIT_PAIR_MATCHING_TRY_COUNT = 3;
 	private static final int ODD_AND_EVEN_DIVISION_NUMBER = 2;
 
@@ -26,6 +27,7 @@ public class PairMatchingService {
 			.filter(matching -> matching.equalsLevel(level))
 			.filter(matching -> matching.equalsMission(mission))
 			.collect(Collectors.toList());
+
 		return pairMatch.size() == 1;
 	}
 
@@ -34,9 +36,9 @@ public class PairMatchingService {
 		while (true) {
 			Pairs pairs = isJudgeOddOrEvenCrewsNameSize(Randoms.shuffle(FileUtil.fileReader(course.getNameLocation())));
 			if (generatePairMatchCount == LIMIT_PAIR_MATCHING_TRY_COUNT) {
-				throw new IllegalArgumentException();
+				throw new IllegalArgumentException(ERROR_PAIR_NOT_MATCHING);
 			}
-			if (isValidateSameCourseAndSamePair(course, pairs)) {
+			if (isValidateCourseAndLevelToSamePair(course, level, pairs)) {
 				generatePairMatchCount++;
 				continue;
 			}
@@ -45,10 +47,11 @@ public class PairMatchingService {
 		}
 	}
 
-	private static boolean isValidateSameCourseAndSamePair(Course course, Pairs pairs) {
+	private static boolean isValidateCourseAndLevelToSamePair(Course course, Level level, Pairs pairs) {
 		List<PairMatch> pairMatchings = PairMatchingRepository.pairMatchings();
 		List<PairMatch> equalsPairs = pairMatchings.stream()
 			.filter(pairMatch -> pairMatch.equalsCourse(course))
+			.filter(pairMatch -> pairMatch.equalsLevel(level))
 			.filter(pairMatch -> pairMatch.equalsPairs(pairs))
 			.collect(Collectors.toList());
 
