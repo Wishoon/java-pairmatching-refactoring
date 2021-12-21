@@ -31,6 +31,19 @@ public class MainHandler {
 	}
 
 	public static void selectManager() {
+		String[] command_element = null;
+		try {
+			command_element = InputView.getInputPairMatchingCommand().split(", ", -1);
+		} catch (IllegalArgumentException e) {
+			OutputView.printErrorMessage(e);
+			selectManager();
+		}
+		Course course = Course.findByCourse(command_element[COURSE_INDEX]);
+		Level level = Level.findByLevel(command_element[LEVEL_INDEX]);
+		Mission mission = Mission.findByMission(command_element[MISSION_INDEX]);
+
+		PairMatch pairMatch = PairMatchingRepository.selectPairMatch(course, level, mission);
+		OutputView.printGenerateMatchingResult(pairMatch);
 	}
 
 	public static void resetManager() {
