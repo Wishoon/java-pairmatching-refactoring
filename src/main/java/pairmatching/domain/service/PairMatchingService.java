@@ -77,6 +77,9 @@ public class PairMatchingService {
 	}
 
 	private static Pairs isJudgeOddOrEvenCrewsNameSize(List<String> randomNames) {
+		if (randomNames.size() < 2) {
+			throw new IllegalArgumentException(ERROR_PAIR_NOT_MATCHING);
+		}
 		if (randomNames.size() % ODD_AND_EVEN_DIVISION_NUMBER != 0) {
 			return new Pairs(calculateOddPairMatching(randomNames));
 		}
