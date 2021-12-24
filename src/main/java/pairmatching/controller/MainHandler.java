@@ -14,10 +14,13 @@ public class MainHandler {
 	public static final int COURSE_INDEX = 0;
 	public static final int LEVEL_INDEX = 1;
 	public static final int MISSION_INDEX = 2;
+	public static final String INPUT_SPLIT = ", ";
+	public static final int INPUT_SPLIT_LIMIT = -1;
 
 	public static void matchingManager() {
 		try {
-			final String[] command_element = InputView.getInputPairMatchingCommand().split(", ", -1);
+			final String[] command_element = InputView.getInputPairMatchingCommand()
+				.split(INPUT_SPLIT, INPUT_SPLIT_LIMIT);
 			Course course = Course.findByCourse(command_element[COURSE_INDEX]);
 			Level level = Level.findByLevel(command_element[LEVEL_INDEX]);
 			Mission mission = Mission.findByMission(command_element[MISSION_INDEX]);
@@ -33,7 +36,7 @@ public class MainHandler {
 	public static void selectManager() {
 		String[] command_element = null;
 		try {
-			command_element = InputView.getInputPairMatchingCommand().split(", ", -1);
+			command_element = InputView.getInputPairMatchingCommand().split(INPUT_SPLIT, INPUT_SPLIT_LIMIT);
 		} catch (IllegalArgumentException e) {
 			OutputView.printErrorMessage(e);
 			selectManager();

@@ -13,6 +13,9 @@ import pairmatching.view.InputView;
 import pairmatching.view.OutputView;
 
 public class PairMatchingHandler {
+	public static final String INPUT_SPLIT = ", ";
+	public static final int INPUT_SPLIT_LIMIT = -1;
+
 	public static void generateMatching(Course course, Level level, Mission mission) throws IOException {
 		if (PairMatchingService.validateExistPairMatching(course, level, mission)) {
 			generateReMatching(course, level, mission);
@@ -38,7 +41,8 @@ public class PairMatchingHandler {
 
 	private static void matchingManager() {
 		try {
-			final String[] command_element = InputView.getInputRePairMatchingCommand().split(", ", -1);
+			final String[] command_element = InputView.getInputRePairMatchingCommand()
+				.split(INPUT_SPLIT, INPUT_SPLIT_LIMIT);
 			Course course = Course.findByCourse(command_element[COURSE_INDEX]);
 			Level level = Level.findByLevel(command_element[LEVEL_INDEX]);
 			Mission mission = Mission.findByMission(command_element[MISSION_INDEX]);
